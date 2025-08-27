@@ -2,43 +2,57 @@ package com.example.politicatransparente.ui.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.TextView
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.politicatransparente.R
+import com.example.politicatransparente.ui.adapter.DeputadoResumoAdapter
+import com.example.politicatransparente.ui.viewmodel.DeputadoResumoViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
+class ResumoDeputadosFragment : Fragment(R.layout.fragment_resumo_deputados) {
 
-class ResumoDeputadosFragment : Fragment() {
+    private val viewModel: DeputadoResumoViewModel by viewModel()
 
-    private var _binding: FragmentUserBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var progressBar: ProgressBar
+    private lateinit var textViewError: TextView
+    private lateinit var adapter: DeputadoResumoAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_resumo_deputados, container, false)
-    }
+        recyclerView = view.findViewById(R.id.recyclerViewUsers)
+        progressBar = view.findViewById(R.id.progressBar)
+        textViewError = view.findViewById(R.id.textViewError)
 
-    companion object {
+        adapter = DeputadoResumoAdapter(emptyList())
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = adapter
 
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ResumoDeputadosFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+        // Observa o StateFlow da ViewModel
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collectLatest { state ->
+                    progressBar.visibility = if (state.isLoading) View.VISIBLE else View.GONE
+                    textViewError.visibility = if (state.error != null) View.VISIBLE else View.GONE
+                    recyclerView.visibility = if (state.resumos.isNotEmpty()) View.VISIBLE else View.GONE
+
+                    textViewError.text = state.error ?: ""
+                    adapter.updateData(state.resumos)
                 }
             }
+        }
+
+        // Botão ou swipe para atualizar
+        // ex: binding.swipeRefresh.setOnRefreshListener { viewModel.refreshUsers() }
     }
 }

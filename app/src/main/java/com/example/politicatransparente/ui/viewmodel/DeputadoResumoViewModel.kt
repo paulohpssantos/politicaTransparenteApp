@@ -22,7 +22,7 @@ class DeputadoResumoViewModel(
     )
 
     private val _uiState = MutableStateFlow(UiState())
-    private val uiState: StateFlow<UiState> = _uiState.asStateFlow();
+    val uiState: StateFlow<UiState> = _uiState.asStateFlow();
 
     init {
         // Carrega os resumos dos deputados salvos localmente (Room → Flow)
