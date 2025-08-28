@@ -1,6 +1,6 @@
 package com.example.politicatransparente.domain.model
 
-data class DeputadoResumo(
+data class ResumoDeputado(
 
     val id: Int,
     val email: String,
@@ -8,7 +8,5 @@ data class DeputadoResumo(
     val nome: String,
     val siglaPartido: String,
     val siglaUf: String,
-    val uri: String,
-    val uriPartido: String,
     val urlFoto: String
 )

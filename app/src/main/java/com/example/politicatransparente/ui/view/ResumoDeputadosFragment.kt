@@ -11,8 +11,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.politicatransparente.R
-import com.example.politicatransparente.ui.adapter.DeputadoResumoAdapter
-import com.example.politicatransparente.ui.viewmodel.DeputadoResumoViewModel
+import com.example.politicatransparente.ui.adapter.ResumoDeputadoAdapter
+import com.example.politicatransparente.ui.viewmodel.ResumoDeputadoViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -20,12 +20,12 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ResumoDeputadosFragment : Fragment(R.layout.fragment_resumo_deputados) {
 
-    private val viewModel: DeputadoResumoViewModel by viewModel()
+    private val viewModel: ResumoDeputadoViewModel by viewModel()
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var progressBar: ProgressBar
     private lateinit var textViewError: TextView
-    private lateinit var adapter: DeputadoResumoAdapter
+    private lateinit var adapter: ResumoDeputadoAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,7 +34,7 @@ class ResumoDeputadosFragment : Fragment(R.layout.fragment_resumo_deputados) {
         progressBar = view.findViewById(R.id.progressBar)
         textViewError = view.findViewById(R.id.textViewError)
 
-        adapter = DeputadoResumoAdapter(emptyList())
+        adapter = ResumoDeputadoAdapter(emptyList())
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 

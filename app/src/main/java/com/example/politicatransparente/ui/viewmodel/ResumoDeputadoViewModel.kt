@@ -2,22 +2,22 @@ package com.example.politicatransparente.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.politicatransparente.data.repository.DeputadoResumoRepository
-import com.example.politicatransparente.domain.model.DeputadoResumo
+import com.example.politicatransparente.data.repository.ResumoDeputadoRepository
+import com.example.politicatransparente.domain.model.ResumoDeputado
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class DeputadoResumoViewModel(
-    private val repository: DeputadoResumoRepository
+class ResumoDeputadoViewModel(
+    private val repository: ResumoDeputadoRepository
 ) : ViewModel(){
 
     //Estado da tela (carregando, sucesso, erro)
     data class UiState(
         val isLoading: Boolean = false,
-        val resumos: List<DeputadoResumo> = emptyList(),
+        val resumos: List<ResumoDeputado> = emptyList(),
         val error: String? = null
     )
 

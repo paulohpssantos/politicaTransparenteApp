@@ -1,6 +1,6 @@
-package com.example.politicatransparente.data.remote.dto
+package com.example.politicatransparente.data.remote.dto.resumodeputado
 
-data class DeputadoResumoDto(
+data class ResumoDeputadoDto(
     val email: String,
     val id: Int,
     val idLegislatura: Int,

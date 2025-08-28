@@ -3,8 +3,9 @@ package com.example.politicatransparente.di
 import androidx.room.Room
 import com.example.politicatransparente.data.local.db.AppDatabase
 import com.example.politicatransparente.data.remote.ApiService
-import com.example.politicatransparente.data.repository.DeputadoResumoRepository
-import com.example.politicatransparente.ui.viewmodel.DeputadoResumoViewModel
+import com.example.politicatransparente.data.repository.DadosDeputadoRepository
+import com.example.politicatransparente.data.repository.ResumoDeputadoRepository
+import com.example.politicatransparente.ui.viewmodel.ResumoDeputadoViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -49,15 +50,17 @@ val databaseModule = module {
     }
 
     //Adiciona DAOs aqui
-    single { get<AppDatabase>().deputadoResumoDao() }
+    single { get<AppDatabase>().resumoDeputadoDao() }
+    single { get<AppDatabase>().dadosDeputadoDao() }
 }
 
 // Módulo de repositórios
 val repositoryModule = module {
-    single { DeputadoResumoRepository(get(), get()) }
+    single { ResumoDeputadoRepository(get(), get()) }
+    single { DadosDeputadoRepository(get(), get()) }
 }
 
 //Módulo de viewmodels
 val viewModelModule = module {
-    viewModel { DeputadoResumoViewModel(get()) }
+    viewModel { ResumoDeputadoViewModel(get()) }
 }

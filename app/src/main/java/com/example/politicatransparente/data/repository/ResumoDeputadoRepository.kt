@@ -1,21 +1,21 @@
 package com.example.politicatransparente.data.repository
 
-import com.example.politicatransparente.data.local.dao.DeputadoResumoDao
+import com.example.politicatransparente.data.local.dao.ResumoDeputadoDao
 import com.example.politicatransparente.data.remote.ApiService
-import com.example.politicatransparente.domain.mapper.toDomain
+import com.example.politicatransparente.domain.mapper.toModel
 import com.example.politicatransparente.domain.mapper.toEntity
-import com.example.politicatransparente.domain.model.DeputadoResumo
+import com.example.politicatransparente.domain.model.ResumoDeputado
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class DeputadoResumoRepository (
+class ResumoDeputadoRepository (
     private val api: ApiService,
-    private val dao: DeputadoResumoDao
+    private val dao: ResumoDeputadoDao
 ) {
 
-    fun getResumos(): Flow<List<DeputadoResumo>>{
+    fun getResumos(): Flow<List<ResumoDeputado>>{
         return dao.getAllDeputados().map { list ->
-            list.map { it.toDomain() }
+            list.map { it.toModel() }
         }
     }
 
