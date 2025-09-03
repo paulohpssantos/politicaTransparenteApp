@@ -42,7 +42,7 @@ class ResumoDeputadoAdapter(private var resumos: List<ResumoDeputado>): Recycler
         holder.textEmail.text = dep.email
 
         Glide.with(holder.itemView.context)
-            .load(dep.urlFoto) //
+            .load(dep.urlFoto)
             .placeholder(R.drawable.ic_placeholder)
             .error(R.drawable.ic_placeholder)
             .into(holder.imageViewFoto)

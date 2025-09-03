@@ -5,6 +5,7 @@ import com.example.politicatransparente.data.local.db.AppDatabase
 import com.example.politicatransparente.data.remote.ApiService
 import com.example.politicatransparente.data.repository.DadosDeputadoRepository
 import com.example.politicatransparente.data.repository.ResumoDeputadoRepository
+import com.example.politicatransparente.ui.viewmodel.DadosDeputadoViewModel
 import com.example.politicatransparente.ui.viewmodel.ResumoDeputadoViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -63,4 +64,5 @@ val repositoryModule = module {
 //Módulo de viewmodels
 val viewModelModule = module {
     viewModel { ResumoDeputadoViewModel(get()) }
+    viewModel { DadosDeputadoViewModel(get()) }
 }
