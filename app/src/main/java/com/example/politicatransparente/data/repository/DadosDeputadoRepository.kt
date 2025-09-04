@@ -18,7 +18,17 @@ class DadosDeputadoRepository(
 
     suspend fun refreshDados(id: Int){
         val response = api.getDeputadoPorId(id)
+
+        try{
         val entity = response.dados.toEntity()
-        dao.insert(entity)
+
+
+            println("Entrou aqui 1")
+            dao.insert(entity)
+            println("Entrou aqui")
+        }catch (e: Exception){
+            println("Erro ao salvar no banco: ${e.message}")
+        }
+
     }
 }

@@ -47,7 +47,8 @@ val databaseModule = module {
             androidContext(),
             AppDatabase::class.java,
             "politicatransparente_db"
-        ).build()
+        ).fallbackToDestructiveMigration()
+            .build()
     }
 
     //Adiciona DAOs aqui

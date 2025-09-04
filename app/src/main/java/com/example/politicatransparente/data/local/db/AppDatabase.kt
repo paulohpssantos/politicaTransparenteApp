@@ -11,9 +11,10 @@ import com.example.politicatransparente.data.local.entities.ResumoDeputadoEntity
 
 @Database(
     entities = [ResumoDeputadoEntity::class, DadosDeputadoEntity::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
+
 @TypeConverters(ListStringConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun resumoDeputadoDao(): ResumoDeputadoDao

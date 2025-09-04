@@ -28,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.politicatransparente.domain.model.ResumoDeputado
 import com.example.politicatransparente.ui.viewmodel.DadosDeputadoViewModel
 import kotlinx.coroutines.launch
@@ -77,7 +78,8 @@ fun DadosDeputadoDrawerScreen(
         Scaffold (
             topBar = {
                 TopAppBar(
-                    title = { Text("Deputado") },
+                    title = { Text(resumodeputado.nome, fontSize = 25.sp) },
+
                     navigationIcon = {
                         IconButton (onClick = { scope.launch { drawerState.open() } }) {
                             Icon(Icons.Default.Menu, contentDescription = "Menu")
