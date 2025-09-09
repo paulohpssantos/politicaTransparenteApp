@@ -27,4 +27,16 @@
     <string name="telefone">Telefone</string>
     <string name="email">Email</string>
 
+    <string name="despesas">Despesas</string>
+    <string name="discursos">Discursos</string>
+    <string name="eventos">Eventos</string>
+    <string name="frentes">Frentes</string>
+    <string name="historico">Historico</string>
+    <string name="mandatos_externos">Mandados Externos</string>
+    <string name="ocupacoes">Ocupações</string>
+    <string name="orgaos">Orgãos</string>
+    <string name="profissoes">Profissões</string>
+    <string name="pessoais">Pessoais</string>
+
+
 </resources>

@@ -1,12 +1,17 @@
 package com.example.politicatransparente.ui.view.dadosDeputado
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.DrawerValue
@@ -27,12 +32,16 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
+import com.example.politicatransparente.R
 import com.example.politicatransparente.domain.model.ResumoDeputado
-import com.example.politicatransparente.ui.viewmodel.DadosDeputadoViewModel
 import kotlinx.coroutines.launch
-import org.koin.androidx.compose.koinViewModel
 
 @OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
 @Composable
@@ -42,29 +51,35 @@ fun DadosDeputadoDrawerScreen(
 ) {
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val scope = rememberCoroutineScope()
+    val urlLogoPartido = "https://raw.githubusercontent.com/paulohpssantos/appImages/main/logoPartidos/";
 
     val secoes = listOf(
-        "Pessoais", "Status", "Gabinete", "Redes",
-        "Mandatos", "Comissões", "Projetos", "Discursos",
-        "Agenda", "Contatos"
+        stringResource(id = R.string.pessoais), stringResource(id = R.string.despesas), stringResource(id = R.string.discursos), stringResource(id = R.string.eventos),
+        stringResource(id = R.string.frentes),stringResource(id = R.string.historico),stringResource(id = R.string.mandatos_externos),
+        stringResource(id = R.string.ocupacoes),stringResource(id = R.string.orgaos),stringResource(id = R.string.profissoes)
     )
 
 
     var secaoSelecionada by remember { mutableStateOf(0) }
 
-
+    val context = LocalContext.current
+    val ufImageName = resumodeputado.siglaUf.lowercase()
+    val ufImageId = context.resources.getIdentifier(ufImageName, "drawable", context.packageName)
 
     ModalNavigationDrawer (
         drawerState = drawerState,
         drawerContent = {
-            Column (modifier = Modifier.padding(16.dp)) {
-                Text("Seções", style = MaterialTheme.typography.titleLarge)
+            Column (modifier = Modifier
+                .background(Color(0xFFEEEEEE))
+                .padding(16.dp)
+                .fillMaxHeight()
+                .wrapContentWidth()) {
+                Text(resumodeputado.nome, style = MaterialTheme.typography.titleLarge)
                 Spacer(modifier = Modifier.height(16.dp))
                 secoes.forEachIndexed { index, secao ->
                     Text(
                         text = secao,
                         modifier = Modifier
-                            .fillMaxWidth()
                             .clickable() {
                                 secaoSelecionada = index
                                 scope.launch { drawerState.close() }
@@ -72,6 +87,23 @@ fun DadosDeputadoDrawerScreen(
                             .padding(vertical = 12.dp)
                     )
                 }
+                Image(
+                    painter = painterResource(id = ufImageId),
+                    contentDescription = resumodeputado.siglaUf,
+                    modifier = Modifier
+                        .size(100.dp)
+                )
+
+                //var url = PartidoImageUrls.urlPorSigla[resumodeputado.siglaPartido];
+                //println("URL DO ICONE: ${url}")
+
+                AsyncImage(
+                    model = urlLogoPartido+resumodeputado.siglaPartido+".png",
+                    contentDescription = "Logo do Partido",
+                    modifier = Modifier
+                        .size(100.dp)
+
+                )
             }
         }
     ) {

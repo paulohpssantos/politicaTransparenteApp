@@ -45,7 +45,6 @@ fun DadosGeraisTab(
 
     // Carrega os dados do deputado ao abrir a tela
     LaunchedEffect(resumo.id) {
-        println("Chamando carregarDeputado para id: ${resumo.id}")
         viewModel.carregarDeputado(resumo.id)
     }
 
@@ -292,6 +291,7 @@ fun DadosGeraisTab(
                             append(deputado.gabineteEmail)
                         }
                     )
+
                 }
 
 
